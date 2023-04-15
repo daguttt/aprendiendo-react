@@ -1,0 +1,53 @@
+.tw-followCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.tw-folloCard-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tw-folloCard-header div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.tw-folloCard-header div strong {
+  font-size: 1.05rem;
+}
+
+.tw-folloCard-header div span {
+  font-weight: 100;
+}
+
+.tw-folloCard-avatar {
+  width: 48px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.tw-folloCard-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid black;
+  border-radius: 2rem;
+  background-color: var(--light-clc);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.tw-folloCard-btn:hover {
+  background-color: #09f;
+  transition: 250ms ease background-color;
+}
+
+.tw-folloCard-btn.is-following:hover {
+  background-color: red;
+  content: "Dejar de seguir";
+}

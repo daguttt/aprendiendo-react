@@ -1,0 +1,25 @@
+:root {
+  --light-clc: #f4f4f4;
+  --dark-clc: #222;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: system-ui;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: #222;
+  color: var(--light-clc);
+}
