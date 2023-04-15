@@ -1,0 +1,20 @@
+{
+  "name": "aprendiendo-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daguttt/aprendiendo-react.git"
+  },
+  "keywords": [],
+  "author": "daguttt <dagutmu667@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daguttt/aprendiendo-react/issues"
+  },
+  "homepage": "https://github.com/daguttt/aprendiendo-react#readme"
+}
