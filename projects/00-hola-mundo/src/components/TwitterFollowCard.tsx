@@ -3,13 +3,13 @@ import { useState } from "react";
 
 export type TwitterFollowCardProps = {
   userName: string;
-  name: string;
   initialIsFollowing?: boolean;
+  children: string;
 };
 
 export function TwitterFollowCard({
+  children,
   userName,
-  name,
   initialIsFollowing,
 }: TwitterFollowCardProps) {
   const [followed, setFollowed] = useState(initialIsFollowing);
@@ -33,7 +33,7 @@ export function TwitterFollowCard({
           alt="daguttt's avatar"
         />
         <div>
-          <strong>{name}</strong>
+          <strong>{children}</strong>
           <span>@{userName}</span>
         </div>
       </header>
