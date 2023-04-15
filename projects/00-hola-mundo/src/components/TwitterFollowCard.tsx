@@ -17,7 +17,7 @@ export function TwitterFollowCard({
 
   const buttonText = followed ? "Siguiendo" : "Seguir";
   const buttonClassnames = followed
-    ? "tw-folloCard-btn is-following"
+    ? "tw-folloCard-btn isFollowing"
     : "tw-folloCard-btn";
 
   // const handleClick = useCallback(() => setFollowed((prev) => !prev), []);
@@ -38,7 +38,8 @@ export function TwitterFollowCard({
       </header>
       <aside>
         <button onClick={handleClick} className={buttonClassnames}>
-          {buttonText}
+          <span className="tw-folloCard-btn-text">{buttonText}</span>
+          <span className="tw-folloCard-btn-stopFollow">Dejar de seguir</span>
         </button>
       </aside>
     </article>

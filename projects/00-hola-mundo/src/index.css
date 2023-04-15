@@ -20,6 +20,11 @@ body {
   place-content: center;
   min-height: 100vh;
   min-height: 100svh;
-  background-color: #222;
+  background-color: black;
   color: var(--light-clc);
+}
+
+main {
+  background-color: #222;
+  border-radius: 1rem;
 }

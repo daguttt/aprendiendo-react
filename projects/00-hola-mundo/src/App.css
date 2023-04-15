@@ -6,6 +6,11 @@
   padding: 0.75rem 1rem;
 }
 
+.tw-followCard:has(*:hover),
+.tw-followCard:hover {
+  background-color: rgba(255, 255, 255, 0.035);
+}
+
 .tw-folloCard-header {
   display: flex;
   align-items: center;
@@ -25,6 +30,7 @@
 
 .tw-folloCard-header div span {
   font-weight: 100;
+  color: rgba(255, 255, 255, 0.348);
 }
 
 .tw-folloCard-avatar {
@@ -35,19 +41,34 @@
 
 .tw-folloCard-btn {
   padding: 0.5rem 1rem;
-  border: 1px solid black;
+  border: 1px solid transparent;
   border-radius: 2rem;
   background-color: var(--light-clc);
   font-weight: 600;
   font-size: 1rem;
 }
 
-.tw-folloCard-btn:hover {
-  background-color: #09f;
-  transition: 250ms ease background-color;
+.tw-folloCard-btn.isFollowing {
+  width: 150px;
+  background-color: transparent;
+  color: white;
+  border-color: rgb(255, 255, 255, 0.298);
 }
 
-.tw-folloCard-btn.is-following:hover {
-  background-color: red;
-  content: "Dejar de seguir";
+.tw-folloCard-btn.isFollowing:hover {
+  background-color: rgb(255, 0, 0, 0.098);
+  border-color: rgba(255, 0, 0, 0.299);
+  color: red;
+}
+
+.tw-folloCard-btn-stopFollow {
+  display: none;
+}
+
+.tw-folloCard-btn.isFollowing:hover .tw-folloCard-btn-stopFollow {
+  display: initial;
+}
+
+.tw-folloCard-btn.isFollowing:hover .tw-folloCard-btn-text {
+  display: none;
 }
