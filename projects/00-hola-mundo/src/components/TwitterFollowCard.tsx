@@ -1,17 +1,18 @@
-import { useCallback, useState } from "react";
+// import { useCallback, useState } from "react";
+import { useState } from "react";
 
 export type TwitterFollowCardProps = {
   userName: string;
   name: string;
-  isFollowing?: boolean;
+  initialIsFollowing?: boolean;
 };
 
 export function TwitterFollowCard({
   userName,
   name,
-  isFollowing,
+  initialIsFollowing,
 }: TwitterFollowCardProps) {
-  const [followed, setFollowed] = useState(isFollowing);
+  const [followed, setFollowed] = useState(initialIsFollowing);
 
   const imgSrc = `https://unavatar.io./${userName}`;
 
