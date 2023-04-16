@@ -40,6 +40,7 @@ export function TwitterFollowCard({
       <aside>
         <button onClick={handleClick} className={buttonClassnames}>
           <span className="tw-folloCard-btn-text">{buttonText}</span>
+          {/* Displaying logic of this element (⬇️) is handled on App.css */}
           <span className="tw-folloCard-btn-stopFollow">Dejar de seguir</span>
         </button>
       </aside>
