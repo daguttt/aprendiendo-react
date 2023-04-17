@@ -1,10 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { useState } from "react";
+
+import { BoardContent, BoardState } from "./types";
+import { TURNS, WINNING_COMBINATIONS } from "./constants";
+
+import { Tile } from "./components/Tile";
+
+const initialBoardState: BoardState = {
+  board: Array(9).fill(null),
+  playsCount: 0,
+  turn: TURNS.X,
+  winner: null,
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [{ board, playsCount, turn, winner }, setBoard] =
+    useState<BoardState>(initialBoardState);
+
 
   return (
     <div className="App">
@@ -30,6 +42,16 @@ function App() {
       </p>
     </div>
   )
+    <main>
+      <article className="board">
+        {board.map((tile, i) => (
+          <Tile key={i} index={i} updateBoard={updateBoard}>
+            {tile}
+          </Tile>
+        ))}
+      </article>
+    </main>
+  );
 }
 
-export default App
+export default App;
