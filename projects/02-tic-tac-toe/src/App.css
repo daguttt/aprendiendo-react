@@ -1,0 +1,111 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1rem;
+  background-clip: padding-box;
+  background-color: #d4d4d4;
+}
+
+@media (prefers-color-scheme: dark) {
+  .board {
+    background-color: #373737;
+  }
+}
+
+.tile {
+  width: 100px;
+  aspect-ratio: 1;
+  border-color: black;
+  border-style: solid;
+  border-width: 0;
+  display: grid;
+  place-items: center;
+  font-size: var(--board-font-size);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tile {
+    border-color: var(--light-clc);
+  }
+}
+
+.board .tile:nth-child(1),
+.board .tile:nth-child(2),
+.board .tile:nth-child(4),
+.board .tile:nth-child(5) {
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.board .tile:nth-child(3),
+.board .tile:nth-child(6) {
+  border-bottom-width: 1px;
+}
+
+.board .tile:nth-child(7),
+.board .tile:nth-child(8) {
+  border-right-width: 1px;
+}
+
+.winning-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background-color: rgba(255, 255, 255, 0.657);
+  backdrop-filter: blur(1rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  .winning-modal {
+    background-color: rgba(0, 0, 0, 0.657);
+  }
+}
+
+.winning-modal article {
+  --font-size: 2rem;
+  background-color: white;
+  padding: 2rem calc(var(--font-size) * 2.5);
+  display: grid;
+  place-content: center;
+  box-shadow: 0 0 2rem #2222224a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .winning-modal article {
+    background-color: var(--dark-clc);
+    box-shadow: 0 0 2rem #eeeeee83;
+  }
+}
+
+.winning-modal article p {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.winning-modal .winner {
+  font-size: calc(var(--font-size) * 1.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  .winning-modal .winner {
+    text-shadow: 0 0 calc(var(--font-size) / 4);
+  }
+}
+
+.winning-modal article button {
+  padding: 0.5rem 2rem;
+  font-size: calc(var(--font-size) / 2);
+}
+
+.turns {
+  font-size: var(--board-font-size);
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.turns .tile.current {
+  background-color: var(--accent-clc);
+}

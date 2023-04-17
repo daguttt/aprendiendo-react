@@ -1,0 +1,49 @@
+:root {
+  --dark-clc: #222;
+  --light-clc: #eee;
+  --board-font-size: 3rem;
+  --accent-clc: #1e88e5;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--dark-clc);
+    color: var(--light-clc);
+  }
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: var(--light-clc);
+  color: var(--dark-clc);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--dark-clc);
+    color: var(--light-clc);
+  }
+}
+
+main {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+}
