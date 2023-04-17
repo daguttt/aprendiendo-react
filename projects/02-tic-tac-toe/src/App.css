@@ -6,6 +6,12 @@
   background-color: #d4d4d4;
 }
 
+@media (prefers-color-scheme: dark) {
+  .board {
+    background-color: #373737;
+  }
+}
+
 .tile {
   width: 100px;
   aspect-ratio: 1;
@@ -15,6 +21,12 @@
   display: grid;
   place-items: center;
   font-size: var(--board-font-size);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tile {
+    border-color: var(--light-clc);
+  }
 }
 
 .board .tile:nth-child(1),
@@ -45,6 +57,12 @@
   backdrop-filter: blur(1rem);
 }
 
+@media (prefers-color-scheme: dark) {
+  .winning-modal {
+    background-color: rgba(0, 0, 0, 0.657);
+  }
+}
+
 .winning-modal article {
   --font-size: 2rem;
   background-color: white;
@@ -54,6 +72,12 @@
   box-shadow: 0 0 2rem #2222224a;
 }
 
+@media (prefers-color-scheme: dark) {
+  .winning-modal article {
+    background-color: var(--dark-clc);
+    box-shadow: 0 0 2rem #eeeeee83;
+  }
+}
 
 .winning-modal article p {
   font-size: 2rem;

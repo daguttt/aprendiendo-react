@@ -33,6 +33,13 @@ body {
   color: var(--dark-clc);
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--dark-clc);
+    color: var(--light-clc);
+  }
+}
+
 main {
   min-height: 100vh;
   min-height: 100svh;
