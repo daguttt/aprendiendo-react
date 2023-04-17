@@ -1,7 +1,11 @@
+import { BoardContent } from "./types";
+
 export const TURNS = {
   X: "x",
   O: "o",
 } as const;
+
+export const TURNS_LIST: BoardContent[] = [TURNS.X, TURNS.O];
 
 export const WINNING_COMBINATIONS = [
   // Horizontal

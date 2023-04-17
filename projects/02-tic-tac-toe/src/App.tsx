@@ -1,47 +1,70 @@
 import "./App.css";
 import { useState } from "react";
 
-import { BoardContent, BoardState } from "./types";
+import { BoardContent, BoardState, Winner } from "./types";
 import { TURNS, WINNING_COMBINATIONS } from "./constants";
 
 import { Tile } from "./components/Tile";
+import { Turns } from "./components/Turns";
 
 const initialBoardState: BoardState = {
   board: Array(9).fill(null),
   playsCount: 0,
-  turn: TURNS.X,
+  currentTurn: TURNS.X,
   winner: null,
 };
 
 function App() {
-  const [{ board, playsCount, turn, winner }, setBoard] =
+  const [{ board, playsCount, currentTurn, winner }, setBoard] =
     useState<BoardState>(initialBoardState);
 
+  function updateBoard(tileIndex: number) {
+    if (board[tileIndex]) return;
+    if (winner) return;
+
+    // Update Board's content
+    const newBoard = [...board];
+    newBoard[tileIndex] = currentTurn;
+    const newPlaysCount = playsCount + 1;
+
+    let newWinner: Winner = checkWinner(playsCount, newBoard);
+    const isATie = newPlaysCount === newBoard.length && newWinner === null;
+    if (isATie) newWinner = false;
+
+    const newTurn: BoardContent = currentTurn === TURNS.X ? TURNS.O : TURNS.X;
+
+    setBoard({
+      board: newBoard,
+      playsCount: newPlaysCount,
+      currentTurn: newTurn,
+      winner: newWinner,
+    });
+  }
+
+  function checkWinner(
+    playCount: number,
+    boardToCheck: (BoardContent | null)[]
+  ) {
+    if (playCount < 4) return null;
+    return getWinner(boardToCheck);
+  }
+
+  function getWinner(board: (BoardContent | null)[]) {
+    for (const [a, b, c] of WINNING_COMBINATIONS) {
+      console.log({ a, b, c });
+
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        return board[a];
+      }
+    }
+    return null;
+  }
+
+  function handleResetBoard() {
+    setBoard(initialBoardState);
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
     <main>
       <article className="board">
         {board.map((tile, i) => (
@@ -49,7 +72,29 @@ function App() {
             {tile}
           </Tile>
         ))}
+        {/* <p>{`${winner}`}</p> */}
       </article>
+      <Turns currentTurn={currentTurn} />
+      {winner && (
+        <section className="winning-modal">
+          <article>
+            <p>
+              Winner is: <b className="winner">{winner}</b>
+            </p>
+            <button onClick={handleResetBoard}>Reset game</button>
+          </article>
+        </section>
+      )}
+      {winner === false && (
+        <section className="winning-modal">
+          <article>
+            <p>
+              It is a <b>tie</b>
+            </p>
+            <button onClick={handleResetBoard}>Reset game</button>
+          </article>
+        </section>
+      )}
     </main>
   );
 }

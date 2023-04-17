@@ -1,6 +1,8 @@
 :root {
   --dark-clc: #222;
   --light-clc: #eee;
+  --board-font-size: 3rem;
+  --accent-clc: #1e88e5;
 }
 
 html {
@@ -27,6 +29,8 @@ html {
 
 body {
   margin: 0;
+  background-color: var(--light-clc);
+  color: var(--dark-clc);
 }
 
 main {
@@ -34,4 +38,5 @@ main {
   min-height: 100svh;
   display: grid;
   place-content: center;
+  gap: 1rem;
 }

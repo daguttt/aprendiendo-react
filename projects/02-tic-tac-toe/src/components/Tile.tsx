@@ -17,7 +17,7 @@ export function Tile({ index, updateBoard, children }: TileProps) {
   };
 
   return (
-    <div onClick={handleClick} style={style}>
+    <div className="tile" onClick={handleClick} style={style}>
       <span>{children}</span>
     </div>
   );

@@ -3,42 +3,80 @@
   grid-template-columns: repeat(3, 1fr);
   padding: 1rem;
   background-clip: padding-box;
-  background-color: #373737;
+  background-color: #d4d4d4;
 }
 
-.board div {
+.tile {
   width: 100px;
   aspect-ratio: 1;
-  border-color: var(--light-clc);
+  border-color: black;
   border-style: solid;
   border-width: 0;
   display: grid;
   place-items: center;
-  font-size: 3rem;
+  font-size: var(--board-font-size);
 }
 
-.board div:nth-child(1),
-.board div:nth-child(2),
-.board div:nth-child(4),
-.board div:nth-child(5) {
+.board .tile:nth-child(1),
+.board .tile:nth-child(2),
+.board .tile:nth-child(4),
+.board .tile:nth-child(5) {
   border-right-width: 1px;
   border-bottom-width: 1px;
 }
 
-.board div:nth-child(3),
-.board div:nth-child(6) {
+.board .tile:nth-child(3),
+.board .tile:nth-child(6) {
   border-bottom-width: 1px;
 }
 
-.board div:nth-child(7),
-.board div:nth-child(8) {
+.board .tile:nth-child(7),
+.board .tile:nth-child(8) {
   border-right-width: 1px;
 }
 
-.card {
-  padding: 2em;
+.winning-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background-color: rgba(255, 255, 255, 0.657);
+  backdrop-filter: blur(1rem);
 }
 
-.read-the-docs {
-  color: #888;
+.winning-modal article {
+  --font-size: 2rem;
+  background-color: white;
+  padding: 2rem calc(var(--font-size) * 2.5);
+  display: grid;
+  place-content: center;
+  box-shadow: 0 0 2rem #2222224a;
+}
+
+
+.winning-modal article p {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.winning-modal .winner {
+  font-size: calc(var(--font-size) * 1.3);
+  text-shadow: 0 0 calc(var(--font-size) / 4);
+}
+
+.winning-modal article button {
+  padding: 0.5rem 2rem;
+  font-size: calc(var(--font-size) / 2);
+}
+
+.turns {
+  font-size: var(--board-font-size);
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.turns .tile.current {
+  background-color: var(--accent-clc);
 }
