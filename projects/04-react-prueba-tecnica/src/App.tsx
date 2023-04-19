@@ -1,40 +1,25 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import {
-  CAT_IMAGES_DOMAIN,
-  CAT_IMAGES_ENDPOINT_API_URL,
-  FACT_ENDPOINT_API_URL,
-} from './constants';
-import { CatImageResponse, FactResponse } from './types';
+import { useCatFact, useCatImageFromWord } from './hooks';
 
 export default function App() {
-  const [factFirstWord, setFactFirstWord] = useState<string | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const { fact, refreshFact } = useCatFact();
+  const firstWordFact = fact && fact.split(' ', 1).join(' ');
 
-  // Fetch fact
-  useEffect(() => {
-    fetch(FACT_ENDPOINT_API_URL)
-      .then((res) => res.json())
-      .then((data: FactResponse) => {
-        const [fistWord] = data.fact.split(' ', 1);
-        return setFactFirstWord(fistWord);
-      });
-  }, []);
-
-  // Fetch image with the fact's first word
-  useEffect(() => {
-    if (!factFirstWord) return;
-
-    fetch(`${CAT_IMAGES_ENDPOINT_API_URL}/${factFirstWord}?json=true`)
-      .then((res) => res.json())
-      .then((data: CatImageResponse) => setImageUrl(data.url));
-  }, [factFirstWord]);
+  const { imageUrl: catImageUrl } = useCatImageFromWord({
+    word: firstWordFact,
+  });
 
   return (
     <main>
       <h1>App de Gatittos</h1>
-      {factFirstWord && <p>Fact's first word: "{factFirstWord}"</p>}
-      {imageUrl && <img src={`${CAT_IMAGES_DOMAIN}/${imageUrl}`} />}
+      <button onClick={() => refreshFact()}>Refresh Fact</button>
+      {firstWordFact && <p>Fact's first word: "{firstWordFact}"</p>}
+      {catImageUrl && (
+        <img
+          src={catImageUrl}
+          alt={`Cat Image saying the word: "${firstWordFact}"`}
+        />
+      )}
     </main>
   );
 }
