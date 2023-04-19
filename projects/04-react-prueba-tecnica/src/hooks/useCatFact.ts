@@ -8,7 +8,7 @@ export function useCatFact() {
     getRandomCatFat().then((fact) => setFact(fact));
   };
   // Fetch fact
-  useEffect(() => {}, []);
+  useEffect(refreshFact, []);
 
   return { fact, refreshFact };
 }

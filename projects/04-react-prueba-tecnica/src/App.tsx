@@ -9,8 +9,6 @@ export default function App() {
     word: firstWordFact,
   });
 
-  console.log({ firstWordFact });
-
   return (
     <main>
       <h1>App de Gatittos</h1>
