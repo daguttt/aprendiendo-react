@@ -69,5 +69,5 @@ button:focus-visible {
 }
 
 body.mouse-follower {
-  cursor: none;
+  cursor: auto;
 }
