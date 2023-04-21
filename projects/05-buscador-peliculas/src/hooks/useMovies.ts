@@ -1,14 +1,42 @@
-import withResults from '../mocks/with-results.json';
-import { Movie } from '../types';
+import { useCallback, useRef, useState } from 'react';
+import { FailedMoviesResult, Movie } from '../types';
+import { getMoviesBySearch } from '../services/movies';
 
 export function useMovies() {
-  const movies = withResults.Search ?? [];
-  const mappedMovies: Movie[] = movies.map((movie) => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    poster: movie.Poster,
-    year: movie.Year,
-  }));
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [error, setError] = useState<FailedMoviesResult | null>(null);
+  const isFirstLoad = useRef<boolean>(true);
 
-  return { movies: mappedMovies };
+  const searchMovies = useCallback(
+    async ({ newSearch }: { newSearch: string }) => {
+      isFirstLoad.current = false;
+      let moviesRes;
+
+      try {
+        moviesRes = await getMoviesBySearch({ search: newSearch });
+      } catch (e) {
+        console.error(e);
+      }
+
+      if (!moviesRes) return;
+
+      if (moviesRes.Response === 'False') {
+        setError(moviesRes);
+        setMovies([]);
+        return;
+      }
+
+      const mappedMovies = moviesRes.Search.map((movie) => ({
+        id: movie.imdbID,
+        title: movie.Title,
+        poster: movie.Poster,
+        type: movie.Type,
+        year: movie.Year,
+      }));
+      setMovies(mappedMovies);
+    },
+    []
+  );
+
+  return { movies, error, isFirstLoad: isFirstLoad.current, searchMovies };
 }

@@ -2,17 +2,15 @@ import { Movie } from '../types';
 
 function MoviesList({ movies }: { movies: Movie[] }) {
   return (
-    <section>
+    <ul className="movies">
       {movies.map((movie) => (
-        <article key={movie.id}>
-          <header>
-            <h1>{movie.title}</h1>
-            <p>{movie.year}</p>
-          </header>
+        <li key={movie.id}>
+          <h4>{movie.title}</h4>
+          <p>{movie.year}</p>
           <img src={movie.poster} alt={movie.title} />
-        </article>
+        </li>
       ))}
-    </section>
+    </ul>
   );
 }
 
@@ -20,8 +18,16 @@ function MoviesNotFoundFallback() {
   return <p>No se encontraron películas para esta búsqueda</p>;
 }
 
-export function Movies({ movies }: { movies: Movie[] }) {
+export function Movies({
+  movies,
+  isFirstLoad,
+}: {
+  movies: Movie[];
+  isFirstLoad: boolean;
+}) {
   const hasMovies = movies.length > 0;
+
+  if (isFirstLoad) return <></>;
 
   return (
     <>
