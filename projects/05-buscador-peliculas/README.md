@@ -10,7 +10,7 @@ API a user:
 Requerimientos:
 
 - Necesita mostrar un input para buscar la pelicula y un botón para buscar.
-- LIsta las películas encontradas y muestr el título, año y poster.
+- Lista las películas encontradas y muestra el título, año y poster.
 - Haz que las películas se muestren en un gris responsive.
 
 Primera iteración:
