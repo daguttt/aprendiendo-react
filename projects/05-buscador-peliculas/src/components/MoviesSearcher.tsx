@@ -23,7 +23,6 @@ export function MoviesSearcher({
           placeholder="Divergente, Avengers, The Matrix ..."
         />
       </label>
-      <button type="submit">Buscar</button>
     </form>
   );
 }
