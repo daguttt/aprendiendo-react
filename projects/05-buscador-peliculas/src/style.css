@@ -1,0 +1,21 @@
+#app {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: 3rem;
+}
+
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+
+.movies li {
+  text-align: center;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.movies li :is(h4, p) {
+  margin-bottom: 0.5rem;
+}
