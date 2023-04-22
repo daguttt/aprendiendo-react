@@ -34,6 +34,7 @@ export function useMovies() {
         year: movie.Year,
       }));
       setMovies(mappedMovies);
+      setError(null);
     },
     []
   );
