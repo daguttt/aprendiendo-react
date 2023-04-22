@@ -6,14 +6,18 @@ export function useMovies() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState<FailedMoviesResult | null>(null);
   const isFirstLoad = useRef<boolean>(true);
+  const previousSearch = useRef<string>('');
 
   const searchMovies = useCallback(
     async ({ newSearch }: { newSearch: string }) => {
+      if (previousSearch.current === newSearch) return;
+
       isFirstLoad.current = false;
       let moviesRes;
 
       try {
         moviesRes = await getMoviesBySearch({ search: newSearch });
+        previousSearch.current = newSearch;
       } catch (e) {
         console.error(e);
       }
