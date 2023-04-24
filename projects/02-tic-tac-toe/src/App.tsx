@@ -4,8 +4,9 @@ import { useState } from "react";
 import { BoardContent, BoardState, Winner } from "./types";
 import { TURNS, WINNING_COMBINATIONS } from "./constants";
 
-import { Tile } from "./components/Tile";
 import { Turns } from "./components/Turns";
+import { WinnerModal } from "./components/WinnerModal";
+import { Board } from "./components/Board";
 
 const initialBoardState: BoardState = {
   board: Array(9).fill(null),
@@ -66,35 +67,9 @@ function App() {
 
   return (
     <main>
-      <article className="board">
-        {board.map((tile, i) => (
-          <Tile key={i} index={i} updateBoard={updateBoard}>
-            {tile}
-          </Tile>
-        ))}
-        {/* <p>{`${winner}`}</p> */}
-      </article>
+      <Board board={board} updateBoard={updateBoard} />
       <Turns currentTurn={currentTurn} />
-      {winner && (
-        <section className="winning-modal">
-          <article>
-            <p>
-              Winner is: <b className="winner">{winner}</b>
-            </p>
-            <button onClick={handleResetBoard}>Reset game</button>
-          </article>
-        </section>
-      )}
-      {winner === false && (
-        <section className="winning-modal">
-          <article>
-            <p>
-              It is a <b>tie</b>
-            </p>
-            <button onClick={handleResetBoard}>Reset game</button>
-          </article>
-        </section>
-      )}
+      <WinnerModal winner={winner} handleResetBoard={handleResetBoard} />
     </main>
   );
 }
