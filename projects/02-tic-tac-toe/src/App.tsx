@@ -1,12 +1,13 @@
 import "./App.css";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { BoardContent, BoardState, Winner } from "./types";
-import { TURNS, WINNING_COMBINATIONS } from "./constants";
+import { TURNS } from "./constants";
 
 import { Turns } from "./components/Turns";
 import { WinnerModal } from "./components/WinnerModal";
 import { Board } from "./components/Board";
+import { checkWinner, getNewTurn } from "./logic/board";
 
 const initialBoardState: BoardState = {
   board: Array(9).fill(null),
@@ -19,51 +20,37 @@ function App() {
   const [{ board, playsCount, currentTurn, winner }, setBoard] =
     useState<BoardState>(initialBoardState);
 
-  function updateBoard(tileIndex: number) {
-    if (board[tileIndex]) return;
-    if (winner) return;
+  const updateBoard = useCallback(
+    (tileIndex: number) => {
+      if (board[tileIndex] || winner) return;
 
-    // Update Board's content
-    const newBoard = [...board];
-    newBoard[tileIndex] = currentTurn;
-    const newPlaysCount = playsCount + 1;
+      // Update Board's content
+      const newBoard = [...board];
+      newBoard[tileIndex] = currentTurn;
+      const newPlaysCount = playsCount + 1;
 
-    let newWinner: Winner = checkWinner(playsCount, newBoard);
-    const isATie = newPlaysCount === newBoard.length && newWinner === null;
-    if (isATie) newWinner = false;
+      let newWinner: Winner = checkWinner({
+        playsCount,
+        boardToCheck: newBoard,
+      });
+      const isATie = newPlaysCount === newBoard.length && newWinner === null;
+      if (isATie) newWinner = false;
 
-    const newTurn: BoardContent = currentTurn === TURNS.X ? TURNS.O : TURNS.X;
+      const newTurn: BoardContent = getNewTurn({ currentTurn });
 
-    setBoard({
-      board: newBoard,
-      playsCount: newPlaysCount,
-      currentTurn: newTurn,
-      winner: newWinner,
-    });
-  }
+      setBoard({
+        board: newBoard,
+        playsCount: newPlaysCount,
+        currentTurn: newTurn,
+        winner: newWinner,
+      });
+    },
+    [board]
+  );
 
-  function checkWinner(
-    playCount: number,
-    boardToCheck: (BoardContent | null)[]
-  ) {
-    if (playCount < 4) return null;
-    return getWinner(boardToCheck);
-  }
-
-  function getWinner(board: (BoardContent | null)[]) {
-    for (const [a, b, c] of WINNING_COMBINATIONS) {
-      console.log({ a, b, c });
-
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return board[a];
-      }
-    }
-    return null;
-  }
-
-  function handleResetBoard() {
+  const handleResetBoard = useCallback(() => {
     setBoard(initialBoardState);
-  }
+  }, []);
 
   return (
     <main>
