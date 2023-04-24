@@ -1,7 +1,7 @@
 import "./App.css";
 import { useCallback, useState } from "react";
 
-import { BoardContent, BoardState, Winner } from "./types";
+import { Turn, BoardState, Winner } from "./types";
 import { TURNS } from "./constants";
 
 import { Turns } from "./components/Turns";
@@ -36,7 +36,7 @@ function App() {
       const isATie = newPlaysCount === newBoard.length && newWinner === null;
       if (isATie) newWinner = false;
 
-      const newTurn: BoardContent = getNewTurn({ currentTurn });
+      const newTurn: Turn = getNewTurn({ currentTurn });
 
       setBoard({
         board: newBoard,

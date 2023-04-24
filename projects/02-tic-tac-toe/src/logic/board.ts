@@ -1,7 +1,7 @@
 import { TURNS, WINNING_COMBINATIONS } from "../constants";
-import { BoardContent } from "../types";
+import { BoardContent, Turn } from "../types";
 
-export function getWinner({ board }: { board: (BoardContent | null)[] }) {
+export function getWinner({ board }: { board: BoardContent }) {
   for (const [a, b, c] of WINNING_COMBINATIONS) {
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
       return board[a];
@@ -15,16 +15,12 @@ export function checkWinner({
   boardToCheck,
 }: {
   playsCount: number;
-  boardToCheck: (BoardContent | null)[];
+  boardToCheck: BoardContent;
 }) {
   if (playsCount < 4) return null;
   return getWinner({ board: boardToCheck });
 }
 
-export function getNewTurn({
-  currentTurn,
-}: {
-  currentTurn: BoardContent;
-}): BoardContent {
+export function getNewTurn({ currentTurn }: { currentTurn: Turn }): Turn {
   return currentTurn === TURNS.X ? TURNS.O : TURNS.X;
 }

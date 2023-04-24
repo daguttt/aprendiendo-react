@@ -2,7 +2,7 @@ import { BoardContent } from "../types";
 import { Tile } from "./Tile";
 
 type BoardProps = {
-  board: (BoardContent | null)[];
+  board: BoardContent;
   updateBoard: (tileIndex: number) => void;
 };
 
