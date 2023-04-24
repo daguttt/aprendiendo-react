@@ -33,6 +33,5 @@ export function saveBoard({ boardToSave }: { boardToSave: BoardState }) {
 
 export function getSavedBoard(): BoardState | null {
   const currentBoard = window.localStorage.getItem(BOARD_TOKEN);
-  console.log({ currentBoard });
   return currentBoard ? (JSON.parse(currentBoard) as BoardState) : null;
 }
