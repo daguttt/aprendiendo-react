@@ -94,7 +94,7 @@
   }
 }
 
-.winning-modal article button {
+button {
   padding: 0.5rem 2rem;
   font-size: calc(var(--font-size) / 2);
 }

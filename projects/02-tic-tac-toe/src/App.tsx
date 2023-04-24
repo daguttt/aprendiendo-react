@@ -69,6 +69,7 @@ function App() {
     <main>
       <Board board={board} updateBoard={updateBoard} />
       <Turns currentTurn={currentTurn} />
+      <button onClick={handleResetBoard}>Reset Game</button>
       <WinnerModal winner={winner} handleResetBoard={handleResetBoard} />
     </main>
   );
