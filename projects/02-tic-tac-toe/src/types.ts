@@ -1,11 +1,13 @@
 import { TURNS } from "./constants";
 
-export type BoardContent = ObjectValues<typeof TURNS>;
-export type Winner = BoardContent | null | false;
+export type Turn = ObjectValues<typeof TURNS>;
+export type BoardElement = Turn | null;
+export type BoardContent = BoardElement[];
+export type Winner = BoardElement | false;
 export type BoardState = {
-  board: (BoardContent | null)[];
+  board: BoardContent;
   playsCount: number;
-  currentTurn: BoardContent;
+  currentTurn: Turn;
   winner: Winner;
 };
 

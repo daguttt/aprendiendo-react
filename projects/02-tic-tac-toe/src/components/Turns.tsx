@@ -1,8 +1,8 @@
 import { TURNS_LIST } from "../constants";
-import { BoardContent } from "../types";
+import { Turn } from "../types";
 
 type TurnsProps = {
-  currentTurn: BoardContent;
+  currentTurn: Turn;
 };
 
 export function Turns({ currentTurn }: TurnsProps) {

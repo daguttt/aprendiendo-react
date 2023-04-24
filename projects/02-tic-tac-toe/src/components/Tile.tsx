@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { BoardContent } from "../types";
+import { Turn } from "../types";
 
 type TileProps = {
   index: number;
   updateBoard: (tileIndex: number) => void;
-  children: BoardContent | null;
+  children: Turn | null;
 };
 
 export function Tile({ index, updateBoard, children }: TileProps) {

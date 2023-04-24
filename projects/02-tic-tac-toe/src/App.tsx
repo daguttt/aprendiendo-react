@@ -1,11 +1,18 @@
 import "./App.css";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { BoardContent, BoardState, Winner } from "./types";
-import { TURNS, WINNING_COMBINATIONS } from "./constants";
+import { Turn, BoardState, Winner } from "./types";
+import { TURNS } from "./constants";
 
-import { Tile } from "./components/Tile";
 import { Turns } from "./components/Turns";
+import { WinnerModal } from "./components/WinnerModal";
+import { Board } from "./components/Board";
+import {
+  checkWinner,
+  getNewTurn,
+  getSavedBoard,
+  saveBoard,
+} from "./logic/board";
 
 const initialBoardState: BoardState = {
   board: Array(9).fill(null),
@@ -15,86 +22,54 @@ const initialBoardState: BoardState = {
 };
 
 function App() {
-  const [{ board, playsCount, currentTurn, winner }, setBoard] =
+  const [{ board, playsCount, currentTurn, winner }, setBoardState] =
     useState<BoardState>(initialBoardState);
 
-  function updateBoard(tileIndex: number) {
-    if (board[tileIndex]) return;
-    if (winner) return;
+  useEffect(() => {
+    const savedBoard = getSavedBoard();
+    if (savedBoard) setBoardState(savedBoard);
+  }, []);
 
-    // Update Board's content
-    const newBoard = [...board];
-    newBoard[tileIndex] = currentTurn;
-    const newPlaysCount = playsCount + 1;
+  const updateBoard = useCallback(
+    (tileIndex: number) => {
+      if (board[tileIndex] || winner) return;
 
-    let newWinner: Winner = checkWinner(playsCount, newBoard);
-    const isATie = newPlaysCount === newBoard.length && newWinner === null;
-    if (isATie) newWinner = false;
+      // Update Board's content
+      const newBoard = [...board];
+      newBoard[tileIndex] = currentTurn;
+      const newPlaysCount = playsCount + 1;
 
-    const newTurn: BoardContent = currentTurn === TURNS.X ? TURNS.O : TURNS.X;
+      let newWinner: Winner = checkWinner({
+        playsCount,
+        boardToCheck: newBoard,
+      });
+      const isATie = newPlaysCount === newBoard.length && newWinner === null;
+      if (isATie) newWinner = false;
 
-    setBoard({
-      board: newBoard,
-      playsCount: newPlaysCount,
-      currentTurn: newTurn,
-      winner: newWinner,
-    });
-  }
+      const newTurn: Turn = getNewTurn({ currentTurn });
 
-  function checkWinner(
-    playCount: number,
-    boardToCheck: (BoardContent | null)[]
-  ) {
-    if (playCount < 4) return null;
-    return getWinner(boardToCheck);
-  }
+      const newBoardState: BoardState = {
+        board: newBoard,
+        playsCount: newPlaysCount,
+        currentTurn: newTurn,
+        winner: newWinner,
+      };
+      setBoardState(newBoardState);
+      saveBoard({ boardToSave: newBoardState });
+    },
+    [board]
+  );
 
-  function getWinner(board: (BoardContent | null)[]) {
-    for (const [a, b, c] of WINNING_COMBINATIONS) {
-      console.log({ a, b, c });
-
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return board[a];
-      }
-    }
-    return null;
-  }
-
-  function handleResetBoard() {
-    setBoard(initialBoardState);
-  }
+  const handleResetBoard = useCallback(() => {
+    setBoardState(initialBoardState);
+    saveBoard({ boardToSave: initialBoardState });
+  }, []);
 
   return (
     <main>
-      <article className="board">
-        {board.map((tile, i) => (
-          <Tile key={i} index={i} updateBoard={updateBoard}>
-            {tile}
-          </Tile>
-        ))}
-        {/* <p>{`${winner}`}</p> */}
-      </article>
+      <Board board={board} updateBoard={updateBoard} />
       <Turns currentTurn={currentTurn} />
-      {winner && (
-        <section className="winning-modal">
-          <article>
-            <p>
-              Winner is: <b className="winner">{winner}</b>
-            </p>
-            <button onClick={handleResetBoard}>Reset game</button>
-          </article>
-        </section>
-      )}
-      {winner === false && (
-        <section className="winning-modal">
-          <article>
-            <p>
-              It is a <b>tie</b>
-            </p>
-            <button onClick={handleResetBoard}>Reset game</button>
-          </article>
-        </section>
-      )}
+      <WinnerModal winner={winner} handleResetBoard={handleResetBoard} />
     </main>
   );
 }
