@@ -1,5 +1,5 @@
 import { TURNS, WINNING_COMBINATIONS } from "../constants";
-import { BoardContent, Turn } from "../types";
+import { BoardContent, BoardState, Turn } from "../types";
 
 export function getWinner({ board }: { board: BoardContent }) {
   for (const [a, b, c] of WINNING_COMBINATIONS) {
@@ -23,4 +23,16 @@ export function checkWinner({
 
 export function getNewTurn({ currentTurn }: { currentTurn: Turn }): Turn {
   return currentTurn === TURNS.X ? TURNS.O : TURNS.X;
+}
+
+export const BOARD_TOKEN = "currentGame";
+
+export function saveBoard({ boardToSave }: { boardToSave: BoardState }) {
+  window.localStorage.setItem(BOARD_TOKEN, JSON.stringify(boardToSave));
+}
+
+export function getSavedBoard(): BoardState | null {
+  const currentBoard = window.localStorage.getItem(BOARD_TOKEN);
+  console.log({ currentBoard });
+  return currentBoard ? (JSON.parse(currentBoard) as BoardState) : null;
 }
